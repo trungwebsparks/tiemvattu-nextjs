@@ -6,6 +6,7 @@ import useSWR from 'swr'
 import Link from 'next/link'
 import fetch from 'node-fetch'
 import https from 'https'
+import Layout from '../components/layout'
 
 export async function getStaticProps() {
   //const https = require('https');
@@ -40,37 +41,14 @@ const httpsAgent = new https.Agent({
 
 export default function Home({data}) {
   return (
-    <div className="container">
+    <Layout>      
       <Head>
         <title>Tiệm Vật Tư</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        {/* <Products /> */}
-        <h1>Sản phẩm nổi bật</h1>
-       <div>
-          <Button variant="contained" color="primary">
-              Nhấn đây
-          </Button>
-          <Link href='/about'><a>Giới thiệu</a></Link>
-        </div>
-        <div>
-          {
-            data.length ? 
-            data.map((item,index) =>(
-              <li key={index}>
-                 <img
-                      alt="product-thumbnail"
-                      width="100px;"
-                      style={{ maxHeight: "100px" }}
-                      loading="lazy"
-                      src={`https://tiemvattu.com/api/Files/GetFile?path=${item.thumbnailPath}`}
-                    />  {item.name}
-              </li>
-            )) : <Skeleton variant="rect" width={300} height={300}></Skeleton>
-          }
-        </div>
+        
       </main>
 
       <footer>
@@ -84,7 +62,7 @@ export default function Home({data}) {
         </a>
         <Copyright/>
       </footer>      
-    </div>
+    </Layout>
   )
 }
 
@@ -105,8 +83,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://tiemvattu.com">
-        tiemvattu.com
+      <Link target="_blank" href="https://tiemvattu.com">
+        <a>tiemvattu.com</a>
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
