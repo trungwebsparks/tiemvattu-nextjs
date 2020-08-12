@@ -1,7 +1,9 @@
 import Head from 'next/head'
 import Button from '@material-ui/core/Button'
 import Skeleton from '@material-ui/lab/Skeleton'
+import Typography from '@material-ui/core/Typography'
 import useSWR from 'swr'
+import Link from 'next/link'
 import fetch from 'node-fetch'
 import https from 'https'
 
@@ -21,7 +23,7 @@ const httpsAgent = new https.Agent({
       'Content-Type': 'application/json'
     },
   })
-  console.log('response day ne ',res)
+  //console.log('response day ne ',res)
   data = await res.json();
 }catch(err){
   console.log('error',err)
@@ -51,6 +53,7 @@ export default function Home({data}) {
           <Button variant="contained" color="primary">
               Nhấn đây
           </Button>
+          <Link href='/about'><a>Giới thiệu</a></Link>
         </div>
         <div>
           {
@@ -79,6 +82,7 @@ export default function Home({data}) {
           Powered by{' trqtrung '}
           <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
         </a>
+        <Copyright/>
       </footer>      
     </div>
   )
@@ -97,5 +101,17 @@ export default function Home({data}) {
 
 // }
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://tiemvattu.com">
+        tiemvattu.com
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 
