@@ -1,9 +1,9 @@
-import Head from 'next/head'
+
 import Button from '@material-ui/core/Button'
 import Skeleton from '@material-ui/lab/Skeleton'
-import Typography from '@material-ui/core/Typography'
+
 import useSWR from 'swr'
-import Link from 'next/link'
+
 import fetch from 'node-fetch'
 import https from 'https'
 import Layout from '../components/layout'
@@ -23,9 +23,10 @@ const httpsAgent = new https.Agent({
     headers: {
       'Content-Type': 'application/json'
     },
-  })
-  //console.log('response day ne ',res)
+  });
+  //console.log('response day ne ',res);
   data = await res.json();
+  console.log(data);
 }catch(err){
   console.log('error',err)
 }
@@ -41,27 +42,17 @@ const httpsAgent = new https.Agent({
 
 export default function Home({data}) {
   return (
-    <Layout>      
-      <Head>
-        <title>Tiệm Vật Tư</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <Layout>    
       <main>
-        
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' trqtrung '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-        <Copyright/>
-      </footer>      
+        {
+          data.map((item) =>
+            <div>              
+              <img src={"https://tiemvattu.com/api/Files/GetFile?path="+item.thumbnailPath} width="200"></img>
+              <p>{item.name}</p>              
+            </div>
+          )
+        }
+      </main>   
     </Layout>
   )
 }
@@ -79,17 +70,6 @@ export default function Home({data}) {
 
 // }
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link target="_blank" href="https://tiemvattu.com">
-        <a>tiemvattu.com</a>
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 
